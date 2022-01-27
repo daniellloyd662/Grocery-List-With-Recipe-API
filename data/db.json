@@ -1,0 +1,16 @@
+{
+  "recipes": [
+    {
+      "title": "sandwich",
+      "ingredients": ["tomato", "bread", "cheese", "salami"],
+      "author": "Kenny",
+      "id": 1
+    },
+    {
+      "title": "soup",
+      "ingredients": ["onion", "mushroom", "corn", "meat"],
+      "author": "Mark",
+      "id": 2
+    }
+  ]
+}
