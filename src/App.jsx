@@ -8,11 +8,13 @@ import TodoList from "./components/TodoList";
 import { json } from "mathjs";
 
 function App() {
-  const [recipes, setRecipes] = useState();
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
+  const [recipeLink, setRecipeLink] = useState("");
+  const [recipeTitle, setRecipeTitle] = useState("");
+
   //inputText is defined in the top level so it can be passed between components as a prop
   //useState defines the function of how to reset the variable
   //State stuff
-
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
@@ -27,8 +29,8 @@ function App() {
     });
   }
 
-  const search = "chicken parmesan";
-  const formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
+  let search = "chicken parmesan";
+  let formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
 
   //Run once when app starts
   useEffect(() => {
@@ -47,9 +49,9 @@ function App() {
       })
       .then((data) => {
         const item = data.hits[0];
-        console.log(item.recipe.shareAs); //return link
-        console.log(item.recipe.label); //return title
-        console.log(getIngredients(item)); //return ingredients
+        setRecipeLink(item.recipe.shareAs); //return link
+        setRecipeTitle(item.recipe.label); //return title
+        setRecipeIngredients(getIngredients(item)); //return ingredients
       });
     getLocalTodos();
   }, []);
@@ -99,6 +101,8 @@ function App() {
         setInputText={setInputText}
         inputText={inputText}
         setStatus={setStatus}
+        recipeIngredients={recipeIngredients}
+        setRecipeIngredients={setRecipeIngredients}
       />
       <TodoList
         filteredTodos={filteredTodos}

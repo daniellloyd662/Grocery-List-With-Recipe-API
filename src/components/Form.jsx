@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //setInputText is passed in as a prop
-const Form = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
+const Form = ({
+  inputText,
+  setInputText,
+  todos,
+  setTodos,
+  setStatus,
+  recipeIngredients,
+}) => {
   //input text handler takes the event objecct e and returns the value of the object on which that event occurs
   const inputTextHandler = (e) => {
     // console.log(e.target.value);
@@ -16,6 +23,27 @@ const Form = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
     ]);
     //Resets the input text to "" after submission
     setInputText("");
+  };
+
+  //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
+  const addIngredients = (e) => {
+    e.preventDefault();
+    //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
+    const ingredientsArray = recipeIngredients.map((ingredient) => {
+      const item = {};
+      item.text = ingredient;
+      item.id = Math.random(1000) * 1000;
+      item.completed = false;
+      return item;
+    });
+
+    setTodos([...todos, ...ingredientsArray]);
+    //Resets the input text to "" after submission
+    setInputText("");
+  };
+
+  const submitRecipeHandler = (e) => {
+    addIngredients(e);
   };
 
   const statusHandler = (e) => {
@@ -39,6 +67,16 @@ const Form = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>
         </select>
+      </div>
+      <div className="search">
+        <input type="text" className="recipe-search" />
+        <button
+          onClick={submitRecipeHandler}
+          className="recipe-button"
+          type="submit"
+        >
+          <i className="fas fa-plus-square"></i>
+        </button>
       </div>
     </form>
   );
