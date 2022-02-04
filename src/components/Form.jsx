@@ -8,6 +8,9 @@ const Form = ({
   setTodos,
   setStatus,
   recipeIngredients,
+  updateRecipe,
+  recipeInputText,
+  setRecipeInputText,
 }) => {
   //input text handler takes the event objecct e and returns the value of the object on which that event occurs
   const inputTextHandler = (e) => {
@@ -25,9 +28,16 @@ const Form = ({
     setInputText("");
   };
 
+  const recipeInputTextHandler = (e) => {
+    setRecipeInputText(e.target.value);
+  };
+
   //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
   const addIngredients = (e) => {
     e.preventDefault();
+    console.log(recipeInputText);
+    //update recipe runs asynchronously since it requires access to the database to run
+    updateRecipe(recipeInputText);
     //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
     const ingredientsArray = recipeIngredients.map((ingredient) => {
       const item = {};
@@ -36,10 +46,10 @@ const Form = ({
       item.completed = false;
       return item;
     });
-
+    console.log(ingredientsArray);
     setTodos([...todos, ...ingredientsArray]);
     //Resets the input text to "" after submission
-    setInputText("");
+    setRecipeInputText("");
   };
 
   const submitRecipeHandler = (e) => {
@@ -69,7 +79,12 @@ const Form = ({
         </select>
       </div>
       <div className="search">
-        <input type="text" className="recipe-search" />
+        <input
+          onChange={recipeInputTextHandler}
+          type="text"
+          className="recipe-search"
+          value={recipeInputText}
+        />
         <button
           onClick={submitRecipeHandler}
           className="recipe-button"

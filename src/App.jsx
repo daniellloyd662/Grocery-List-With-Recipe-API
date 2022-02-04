@@ -8,6 +8,7 @@ import TodoList from "./components/TodoList";
 import { json } from "mathjs";
 
 function App() {
+  const [recipeInputText, setRecipeInputText] = useState([]);
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [recipeLink, setRecipeLink] = useState("");
   const [recipeTitle, setRecipeTitle] = useState("");
@@ -29,16 +30,13 @@ function App() {
     });
   }
 
-  let search = "chicken parmesan";
-  let formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
+  //fetch pulls data from the endpoint (string passed in) and returns a promise
+  //.then fires a function when/if the promise is resolved
+  //.then returns a response objectd (not actually the data). To get the data from the response object, we tack on .json which passes the json data into a javascript object for us
+  //the second .then returns the data from the javascript object returned from the previous javascript object
 
-  //Run once when app starts
-  useEffect(() => {
-    //fetch pulls data from the endpoint (string passed in) and returns a promise
-    //.then fires a function when/if the promise is resolved
-    //.then returns a response objectd (not actually the data). To get the data from the response object, we tack on .json which passes the json data into a javascript object for us
-    //the second .then returns the data from the javascript object returned from the previous javascript object
-
+  function updateRecipe(search) {
+    const formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
     fetch(
       "https://api.edamam.com/api/recipes/v2?type=public&q=" +
         formattedSearch +
@@ -54,7 +52,7 @@ function App() {
         setRecipeIngredients(getIngredients(item)); //return ingredients
       });
     getLocalTodos();
-  }, []);
+  }
 
   //runs whenever the prop in the brackets changes
   useEffect(() => {
@@ -103,6 +101,9 @@ function App() {
         setStatus={setStatus}
         recipeIngredients={recipeIngredients}
         setRecipeIngredients={setRecipeIngredients}
+        updateRecipe={updateRecipe}
+        recipeInputText={recipeInputText}
+        setRecipeInputText={setRecipeInputText}
       />
       <TodoList
         filteredTodos={filteredTodos}
