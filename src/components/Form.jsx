@@ -35,10 +35,12 @@ const Form = ({
   //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
   const addIngredients = (e) => {
     e.preventDefault();
-    console.log(recipeInputText);
     //update recipe runs asynchronously since it requires access to the database to run
     updateRecipe(recipeInputText);
     //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
+  };
+
+  useEffect(() => {
     const ingredientsArray = recipeIngredients.map((ingredient) => {
       const item = {};
       item.text = ingredient;
@@ -46,11 +48,10 @@ const Form = ({
       item.completed = false;
       return item;
     });
-    console.log(ingredientsArray);
     setTodos([...todos, ...ingredientsArray]);
     //Resets the input text to "" after submission
     setRecipeInputText("");
-  };
+  }, [recipeIngredients]);
 
   const submitRecipeHandler = (e) => {
     addIngredients(e);

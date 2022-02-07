@@ -1,7 +1,6 @@
 Todo:
     Run code asynchronously so that js doesn't add ingredients to todo list before they are pulled from the API
-        updateRecipe(recipeInputText) in form.jsx is the culprit.
-        Don't update the ingredients list UNTIL THE REQUEST IS COMPLETED    
+        Solved by using useEffect(()=>{update data here}, [recipeIngredients])
 
     Add ability to search for recipes
     Update Css

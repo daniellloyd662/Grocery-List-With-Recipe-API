@@ -29,35 +29,32 @@ function App() {
       return item["food"];
     });
   }
-
   //fetch pulls data from the endpoint (string passed in) and returns a promise
   //.then fires a function when/if the promise is resolved
   //.then returns a response objectd (not actually the data). To get the data from the response object, we tack on .json which passes the json data into a javascript object for us
   //the second .then returns the data from the javascript object returned from the previous javascript object
-
-  function updateRecipe(search) {
+  async function updateRecipe(search) {
     const formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
-    fetch(
+    const response = await fetch(
       "https://api.edamam.com/api/recipes/v2?type=public&q=" +
         formattedSearch +
         "&app_id=8078911c&app_key=8f5dedc8e3382a4934221714838f38a7"
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        const item = data.hits[0];
-        setRecipeLink(item.recipe.shareAs); //return link
-        setRecipeTitle(item.recipe.label); //return title
-        setRecipeIngredients(getIngredients(item)); //return ingredients
-      });
-    getLocalTodos();
+    );
+
+    const data = await response.json();
+    const item = data.hits[0];
+    //setState operates asynchronously. To wait for setState to complete before continuing, pass in the next operationas a function as the second parameter
+    const updateRecipe = await new Promise((resolve, reject) => {
+      setRecipeLink(item.recipe.shareAs); //return link
+      setRecipeTitle(item.recipe.label); //return title
+      setRecipeIngredients(getIngredients(item)); //return ingredients
+    });
   }
 
   //runs whenever the prop in the brackets changes
   useEffect(() => {
     filterHandler();
-    saveLocalTodos();
+    // saveLocalTodos();
   }, [todos, status]);
 
   const filterHandler = () => {
@@ -75,17 +72,17 @@ function App() {
   };
 
   //save to local storage
-  const saveLocalTodos = () => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  };
-  const getLocalTodos = () => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos", JSON.stringify([]));
-    } else {
-      let todoLocal = JSON.parse(localStorage.getItem("todos"));
-      setTodos(todoLocal);
-    }
-  };
+  // const saveLocalTodos = () => {
+  //   localStorage.setItem("todos", JSON.stringify(todos));
+  // };
+  // const getLocalTodos = () => {
+  //   if (localStorage.getItem("todos") === null) {
+  //     localStorage.setItem("todos", JSON.stringify([]));
+  //   } else {
+  //     let todoLocal = JSON.parse(localStorage.getItem("todos"));
+  //     setTodos(todoLocal);
+  //   }
+  // };
 
   return (
     <div className="App">
@@ -113,5 +110,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
