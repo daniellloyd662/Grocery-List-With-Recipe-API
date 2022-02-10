@@ -1,13 +1,18 @@
 //See for resource https://www.youtube.com/watch?v=pCA4qpQDZD8
-
+//#region ==============================Imports====================================
 import React from "react";
 import "./App.css";
 import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
 import { json } from "mathjs";
+import SearchBar from "./components/SearchBar";
+import RecipeData from "./Data.json";
+
+//#endregion =====================================================================
 
 function App() {
+  //#region ==================Define variables using useState====================
   const [recipeInputText, setRecipeInputText] = useState([]);
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [recipeLink, setRecipeLink] = useState("");
@@ -23,7 +28,9 @@ function App() {
   //Take status and check which case is met
   //Once case is met, then setFilteredTodos using the filter function
 
-  //Returns all ingredients from a recipe
+  //#endregion ==========================================================================
+
+  //#region =================Pull recipe parameters from API===============
   function getIngredients(item) {
     return item.recipe.ingredients.map(function (item) {
       return item["food"];
@@ -43,6 +50,7 @@ function App() {
 
     const data = await response.json();
     const item = data.hits[0];
+    console.log(data.hits);
     //setState operates asynchronously. To wait for setState to complete before continuing, pass in the next operationas a function as the second parameter
     const updateRecipe = await new Promise((resolve, reject) => {
       setRecipeLink(item.recipe.shareAs); //return link
@@ -51,6 +59,9 @@ function App() {
     });
   }
 
+  //#endregion =====================================================================
+
+  //#region =================Filter todos on list update================================
   //runs whenever the prop in the brackets changes
   useEffect(() => {
     filterHandler();
@@ -70,8 +81,9 @@ function App() {
         break;
     }
   };
+  //#endregion ==============================================================
 
-  //save to local storage
+  //#region =================Save to local storage (Under construction) ==================
   // const saveLocalTodos = () => {
   //   localStorage.setItem("todos", JSON.stringify(todos));
   // };
@@ -83,7 +95,9 @@ function App() {
   //     setTodos(todoLocal);
   //   }
   // };
+  //#endregion =============================================================
 
+  //#region =================Return HTML and pass in props=======================
   return (
     <div className="App">
       <header>
@@ -107,7 +121,10 @@ function App() {
         setTodos={setTodos}
         todos={todos}
       />
+      <SearchBar placeholder={"enter a recipe title"} data={RecipeData} />
     </div>
   );
+  //#endregion =============================================================================
 }
+
 export default App;

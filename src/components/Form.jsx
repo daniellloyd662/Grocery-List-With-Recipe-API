@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
-//setInputText is passed in as a prop
 const Form = ({
+  //#region =============================Pass in props =======================================
   inputText,
   setInputText,
   todos,
@@ -11,7 +11,9 @@ const Form = ({
   updateRecipe,
   recipeInputText,
   setRecipeInputText,
+  //#endregion ===============================================================================
 }) => {
+  //#region =============================Add Todo Item =========================================
   //input text handler takes the event objecct e and returns the value of the object on which that event occurs
   const inputTextHandler = (e) => {
     // console.log(e.target.value);
@@ -27,11 +29,13 @@ const Form = ({
     //Resets the input text to "" after submission
     setInputText("");
   };
+  //#endregion =========================================================================
+
+  //#region ============================Add Recipe Ingredients ==============================
 
   const recipeInputTextHandler = (e) => {
     setRecipeInputText(e.target.value);
   };
-
   //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
   const addIngredients = (e) => {
     e.preventDefault();
@@ -56,11 +60,15 @@ const Form = ({
   const submitRecipeHandler = (e) => {
     addIngredients(e);
   };
+  //#endregion ==========================================================================
 
+  //#region ============================Dropdown handler================================
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
+  //#endregion ==========================================================================
 
+  //#region ============================Return HTML ============================================
   return (
     <form>
       <input
@@ -79,6 +87,8 @@ const Form = ({
           <option value="uncompleted">Uncompleted</option>
         </select>
       </div>
+
+      {/* old search bar */}
       <div className="search">
         <input
           onChange={recipeInputTextHandler}
@@ -96,6 +106,7 @@ const Form = ({
       </div>
     </form>
   );
+  //#endregion ==============================================================
 };
 
 export default Form;

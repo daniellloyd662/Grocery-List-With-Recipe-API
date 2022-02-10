@@ -1,3 +1,10 @@
+Notes:
+    Searchbar source: https://www.youtube.com/watch?v=x7niho285qs&ab_channel=PedroTech
+    Recipe Json data: https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json
+    Dependencies: 
+        Material ui: https://mui.com/getting-started/installation/
+            Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
+
 Todo:
     Run code asynchronously so that js doesn't add ingredients to todo list before they are pulled from the API
         Solved by using useEffect(()=>{update data here}, [recipeIngredients])
