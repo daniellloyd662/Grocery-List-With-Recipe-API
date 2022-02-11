@@ -1,5 +1,9 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import "./form.css";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import { filter } from "mathjs";
+import Close from "@mui/icons-material/Close";
 const Form = ({
   //#region =============================Pass in props =======================================
   inputText,
@@ -7,13 +11,13 @@ const Form = ({
   todos,
   setTodos,
   setStatus,
-  recipeIngredients,
-  updateData,
-  recipeInputText,
-  setRecipeInputText,
   data,
+  placeholder,
+
   //#endregion ===============================================================================
 }) => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
   //#region =============================Add Todo Item =========================================
   //input text handler takes the event objecct e and returns the value of the object on which that event occurs
   const inputTextHandler = (e) => {
@@ -32,60 +36,31 @@ const Form = ({
   };
   //#endregion =========================================================================
 
-  //#region ============================Add Recipe Ingredients ==============================
-
-  const dataInputTextHandler = (e) => {
-    setRecipeInputText(e.target.value);
-  };
-  //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
-  const addIngredients = (e) => {
-    e.preventDefault();
-    //update recipe runs asynchronously since it requires access to the database to run
-    updateData(recipeInputText);
-    //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
-  };
-
-  useEffect(() => {
-    const ingredientsArray = recipeIngredients.map((ingredient) => {
-      const item = {};
-      item.text = ingredient;
-      item.id = Math.random(1000) * 1000;
-      item.completed = false;
-      return item;
-    });
-    setTodos([...todos, ...ingredientsArray]);
-    //Resets the input text to "" after submission
-    setRecipeInputText("");
-  }, [recipeIngredients]);
-
-  const submitRecipeHandler = (e) => {
-    // addIngredients(e);
-    e.preventDefault();
-    updateData(recipeInputText);
-    console.log(data);
-
-    data.map((value, key) => {
-      console.log(value.recipe.shareAs);
-    });
-  };
-
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   updateData(recipeInputText);
-  //   console.log(data);
-  //   data.map((value, key) => {
-  //     console.log(value.recipe.shareAs);
-  //   });
-  // }, [recipeInputText]);
-
-  //#endregion ==========================================================================
-
-  //#region ============================Filter Handler================================
+  //#region ============================Filter Handler (To do list)================================
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
   //#endregion ==========================================================================
+  //#region ============================Filter Handler (Search Menu)================================
 
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      //Filter loops through each item in data and adds each item which includes the search word to 'newFilter' array
+      return value.name.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
+  const clearInput = () => {
+    setWordEntered("");
+    setFilteredData([]);
+  };
+  //#endregion ==========================================================================
   //#region ============================Return HTML ============================================
   return (
     <form>
@@ -108,29 +83,36 @@ const Form = ({
 
       {/* old search bar */}
       <div className="search">
-        <input
-          onChange={dataInputTextHandler}
-          type="text"
-          className="recipe-search"
-          value={recipeInputText}
-        />
-        <button
-          onClick={submitRecipeHandler}
-          className="recipe-button"
-          type="submit"
-        >
-          <i className="fas fa-plus-square"></i>
-        </button>
-        {data.map((value, key) => {
-          return (
-            <a
-              className="dataItem"
-              href={value.recipe.shareAs}
-              target="_blank"
-              key={value.recipe.uri}
-            ></a>
-          );
-        })}
+        <div className="searchInputs">
+          <input
+            placeholder={placeholder}
+            type="text"
+            onChange={handleFilter}
+            value={wordEntered}
+          />
+          <div className="searchIcon">
+            {filteredData.length === 0 ? (
+              <SearchIcon id="searchIcon" />
+            ) : (
+              <CloseIcon id="closeIcon" onClick={clearInput} />
+            )}
+          </div>
+          {/* <button className="recipe-button" type="submit">
+            <i className="fas fa-plus-square"></i>
+          </button> */}
+        </div>
+        {/* This line prevents dropdown from showing when there is no filtered data */}
+        {setFilteredData.length != 0 && (
+          <div className="dataResult">
+            {filteredData.slice(0, 15).map((value, key) => {
+              return (
+                <a key={value.id} className="dataItem" href={value.source}>
+                  <p>{value.name}</p>
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     </form>
   );

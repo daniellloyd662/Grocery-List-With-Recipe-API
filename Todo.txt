@@ -6,17 +6,14 @@ Notes:
             Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
 
 Todo:
-    Split updateRecipeIngredients into two functions, one for updating the list of recipes based on search text and another for adding the ingredients of the selected search to the todolist
-    Display the search results in a dropdown menu below the search bar
-    Add hyperlinks to each search item
     Add button to add each item to the list
-    Add magnifying glass icon
-
-
     Update CSS
 
 
 Done:
+    Add magnifying glass icon
+    Display the search results in a dropdown menu below the search bar
+    Add hyperlinks to each search item
     Run code asynchronously so that js doesn't add ingredients to todo list before they are pulled from the API
         Solved by using useEffect(()=>{update data here}, [recipeIngredients])
 

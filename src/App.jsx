@@ -6,18 +6,12 @@ import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
 import { json } from "mathjs";
-import SearchBar from "./components/SearchBar";
-import RecipeData from "./Data.json";
+import RecipeData from "./RecipeData.json";
 
 //#endregion =====================================================================
 
 function App() {
   //#region ==================Define variables using useState====================
-  const [recipeInputText, setRecipeInputText] = useState([]);
-  const [recipeIngredients, setRecipeIngredients] = useState([]);
-  const [recipeLink, setRecipeLink] = useState("");
-  const [recipeTitle, setRecipeTitle] = useState("");
-  const [data, setData] = useState([]);
   //inputText is defined in the top level so it can be passed between components as a prop
   //useState defines the function of how to reset the variable
   //State stuff
@@ -40,32 +34,6 @@ function App() {
   //.then fires a function when/if the promise is resolved
   //.then returns a response objectd (not actually the data). To get the data from the response object, we tack on .json which passes the json data into a javascript object for us
   //the second .then returns the data from the javascript object returned from the previous javascript object
-  async function updateData(search) {
-    const formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
-    const response = await fetch(
-      "https://api.edamam.com/api/recipes/v2?type=public&q=" +
-        formattedSearch +
-        "&app_id=8078911c&app_key=8f5dedc8e3382a4934221714838f38a7"
-    );
-    const jsonResponse = await response.json();
-    const data = jsonResponse.hits;
-    const item = data[0];
-    //setState operates asynchronously. To wait for setState to complete before continuing, pass in the next operationas a function as the second parameter
-    const updateData = await new Promise((resolve, reject) => {
-      setRecipeLink(item.recipe.shareAs); //return link
-      setRecipeTitle(item.recipe.label); //return title
-      setRecipeIngredients(getIngredients(item)); //return ingredients
-      setData(data);
-    });
-  }
-
-  async function updateIngredients(item) {
-    const updateData = await new Promise((resolve, reject) => {
-      setRecipeLink(item.recipe.shareAs); //return link
-      setRecipeTitle(item.recipe.label); //return title
-      setRecipeIngredients(getIngredients(item)); //return ingredients
-    });
-  }
 
   //#endregion =====================================================================
 
@@ -118,19 +86,13 @@ function App() {
         setInputText={setInputText}
         inputText={inputText}
         setStatus={setStatus}
-        recipeIngredients={recipeIngredients}
-        setRecipeIngredients={setRecipeIngredients}
-        updateData={updateData}
-        recipeInputText={recipeInputText}
-        setRecipeInputText={setRecipeInputText}
-        data={data}
+        data={RecipeData}
       />
       <TodoList
         filteredTodos={filteredTodos}
         setTodos={setTodos}
         todos={todos}
       />
-      <SearchBar placeholder={"enter a recipe title"} data={RecipeData} />
     </div>
   );
   //#endregion =============================================================================
