@@ -17,7 +17,7 @@ function App() {
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [recipeLink, setRecipeLink] = useState("");
   const [recipeTitle, setRecipeTitle] = useState("");
-
+  const [data, setData] = useState([]);
   //inputText is defined in the top level so it can be passed between components as a prop
   //useState defines the function of how to reset the variable
   //State stuff
@@ -40,19 +40,27 @@ function App() {
   //.then fires a function when/if the promise is resolved
   //.then returns a response objectd (not actually the data). To get the data from the response object, we tack on .json which passes the json data into a javascript object for us
   //the second .then returns the data from the javascript object returned from the previous javascript object
-  async function updateRecipe(search) {
+  async function updateData(search) {
     const formattedSearch = search.replace(" ", "%20"); //Formats to pull data from api
     const response = await fetch(
       "https://api.edamam.com/api/recipes/v2?type=public&q=" +
         formattedSearch +
         "&app_id=8078911c&app_key=8f5dedc8e3382a4934221714838f38a7"
     );
-
-    const data = await response.json();
-    const item = data.hits[0];
-    console.log(data.hits);
+    const jsonResponse = await response.json();
+    const data = jsonResponse.hits;
+    const item = data[0];
     //setState operates asynchronously. To wait for setState to complete before continuing, pass in the next operationas a function as the second parameter
-    const updateRecipe = await new Promise((resolve, reject) => {
+    const updateData = await new Promise((resolve, reject) => {
+      setRecipeLink(item.recipe.shareAs); //return link
+      setRecipeTitle(item.recipe.label); //return title
+      setRecipeIngredients(getIngredients(item)); //return ingredients
+      setData(data);
+    });
+  }
+
+  async function updateIngredients(item) {
+    const updateData = await new Promise((resolve, reject) => {
       setRecipeLink(item.recipe.shareAs); //return link
       setRecipeTitle(item.recipe.label); //return title
       setRecipeIngredients(getIngredients(item)); //return ingredients
@@ -112,9 +120,10 @@ function App() {
         setStatus={setStatus}
         recipeIngredients={recipeIngredients}
         setRecipeIngredients={setRecipeIngredients}
-        updateRecipe={updateRecipe}
+        updateData={updateData}
         recipeInputText={recipeInputText}
         setRecipeInputText={setRecipeInputText}
+        data={data}
       />
       <TodoList
         filteredTodos={filteredTodos}

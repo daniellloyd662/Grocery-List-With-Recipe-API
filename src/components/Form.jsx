@@ -8,9 +8,10 @@ const Form = ({
   setTodos,
   setStatus,
   recipeIngredients,
-  updateRecipe,
+  updateData,
   recipeInputText,
   setRecipeInputText,
+  data,
   //#endregion ===============================================================================
 }) => {
   //#region =============================Add Todo Item =========================================
@@ -33,14 +34,14 @@ const Form = ({
 
   //#region ============================Add Recipe Ingredients ==============================
 
-  const recipeInputTextHandler = (e) => {
+  const dataInputTextHandler = (e) => {
     setRecipeInputText(e.target.value);
   };
   //Creates an array of ingredients with a unique id, name, and completed status using ingredientsArray
   const addIngredients = (e) => {
     e.preventDefault();
     //update recipe runs asynchronously since it requires access to the database to run
-    updateRecipe(recipeInputText);
+    updateData(recipeInputText);
     //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
   };
 
@@ -58,11 +59,28 @@ const Form = ({
   }, [recipeIngredients]);
 
   const submitRecipeHandler = (e) => {
-    addIngredients(e);
+    // addIngredients(e);
+    e.preventDefault();
+    updateData(recipeInputText);
+    console.log(data);
+
+    data.map((value, key) => {
+      console.log(value.recipe.shareAs);
+    });
   };
+
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   updateData(recipeInputText);
+  //   console.log(data);
+  //   data.map((value, key) => {
+  //     console.log(value.recipe.shareAs);
+  //   });
+  // }, [recipeInputText]);
+
   //#endregion ==========================================================================
 
-  //#region ============================Dropdown handler================================
+  //#region ============================Filter Handler================================
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
@@ -91,7 +109,7 @@ const Form = ({
       {/* old search bar */}
       <div className="search">
         <input
-          onChange={recipeInputTextHandler}
+          onChange={dataInputTextHandler}
           type="text"
           className="recipe-search"
           value={recipeInputText}
@@ -103,6 +121,16 @@ const Form = ({
         >
           <i className="fas fa-plus-square"></i>
         </button>
+        {data.map((value, key) => {
+          return (
+            <a
+              className="dataItem"
+              href={value.recipe.shareAs}
+              target="_blank"
+              key={value.recipe.uri}
+            ></a>
+          );
+        })}
       </div>
     </form>
   );
