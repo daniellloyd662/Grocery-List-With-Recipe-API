@@ -1,10 +1,37 @@
+Notes:
+    Searchbar source: https://www.youtube.com/watch?v=x7niho285qs&ab_channel=PedroTech
+    Recipe Json data: https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json
+    Dependencies: 
+        Material ui: https://mui.com/getting-started/installation/
+            Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
+
 Todo:
+
+Done (uncomitted):
+    Change color scheme
+    Add dropdown arrow
+    Remove outline around text boxes
+    Increase height of grey background when hovering over recipe links
+
+
+Done:
+    Change Button style
+    Remove color change for clicked links
+    change trash, checkmark and dropdown arrow style
+    resize filter dropdown to match height of search and input fields.
+    limit size of todo items
+    remove entries with long titles to prevent 3 row lines
+    Add items to todo list when clicked
+    Add button to add each item to the list
+    Open link in new page
+    Vertically aligned search bar, filter dropdown and list input
+    uninstalled: @material-ui/icons and @material-ui/core  
+    
+    Add magnifying glass icon
+    Display the search results in a dropdown menu below the search bar
+    Add hyperlinks to each search item
     Run code asynchronously so that js doesn't add ingredients to todo list before they are pulled from the API
         Solved by using useEffect(()=>{update data here}, [recipeIngredients])
 
     Add ability to search for recipes
     Update Css
-    
-
-
-Done:
