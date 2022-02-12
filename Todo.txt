@@ -1,6 +1,7 @@
 Notes:
     Searchbar source: https://www.youtube.com/watch?v=x7niho285qs&ab_channel=PedroTech
     Recipe Json data: https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json
+    github pages deployment tutorial: https://www.youtube.com/watch?v=F8s4Ng-re0E&ab_channel=TelmoSampaio
     Dependencies: 
         Material ui: https://mui.com/getting-started/installation/
             Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
@@ -8,13 +9,15 @@ Notes:
 Todo:
 
 Done (uncomitted):
+    Added homepage, predeploy, and deploy to package.json for github pages deployment
+
+
+
+Done:
     Change color scheme
     Add dropdown arrow
     Remove outline around text boxes
     Increase height of grey background when hovering over recipe links
-
-
-Done:
     Change Button style
     Remove color change for clicked links
     change trash, checkmark and dropdown arrow style
