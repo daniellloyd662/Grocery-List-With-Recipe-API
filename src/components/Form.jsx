@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./form.css";
 import SearchIcon from "@mui/icons-material/Search";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import CloseIcon from "@mui/icons-material/Close";
 import { filter } from "mathjs";
 import Close from "@mui/icons-material/Close";
@@ -21,30 +22,28 @@ const Form = ({
   //#region =============================Add Todo Item =========================================
   //input text handler takes the event objecct e and returns the value of the object on which that event occurs
   const inputTextHandler = (e) => {
-    // console.log(e.target.value);
-    setInputText(e.target.value);
+    setInputText(e.currentTarget.value);
   };
   const submitTodoHandler = (e) => {
     e.preventDefault();
     //Math.random is used to assign a 'unique' id (Not actually unique but high probability that it is)
     setTodos([
-      ...todos,
       { text: inputText, completed: false, id: Math.random(1000) * 1000 },
+      ...todos,
     ]);
     //Resets the input text to "" after submission
     setInputText("");
   };
   //#endregion =========================================================================
-
   //#region ============================Filter Handler (To do list)================================
   const statusHandler = (e) => {
-    setStatus(e.target.value);
+    setStatus(e.currentTarget.value);
   };
   //#endregion ==========================================================================
   //#region ============================Filter Handler (Search Menu)================================
 
   const handleFilter = (event) => {
-    const searchWord = event.target.value;
+    const searchWord = event.currentTarget.value;
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
       //Filter loops through each item in data and adds each item which includes the search word to 'newFilter' array
@@ -62,17 +61,17 @@ const Form = ({
   };
   const submitRecipeHandler = (e) => {
     e.preventDefault();
-    // console.log("add ingredients");
-    // console.log(e.target);
-    const ingredients = data[e.target.id].ingredients;
+    const ingredients = data[e.currentTarget.id].ingredients;
+
     addIngredients(ingredients);
     //Resets the input text to "" after submission
   };
 
+  //Appends each ingredient to the end of the current todos array
   function addIngredients(ingredients) {
     let todosArray = [...todos];
     ingredients.map((ingredient) => {
-      todosArray.push({
+      todosArray.unshift({
         text: ingredient,
         completed: false,
         id: Math.random(1000) * 1000,
@@ -85,24 +84,30 @@ const Form = ({
   //#region ============================Return HTML ============================================
   return (
     <form>
-      <input
-        onChange={inputTextHandler}
-        type="text"
-        className="todo-input"
-        value={inputText}
-      />
-      <button onClick={submitTodoHandler} className="todo-button" type="submit">
-        <i className="fas fa-plus-square"></i>
-      </button>
-      <div className="select">
+      <div className="todo-input-container">
+        <input
+          onChange={inputTextHandler}
+          type="text"
+          className="todo-input"
+          value={inputText}
+        />
+        <button
+          id="todo-button"
+          onClick={submitTodoHandler}
+          className="todo-button"
+          type="submit"
+        >
+          <AddBoxIcon id="add-todo-icon" />
+        </button>
+      </div>
+      <div className="select-container">
         <select onChange={statusHandler} name="todos" className="filter-todo">
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="uncompleted">Uncompleted</option>
         </select>
       </div>
-
-      <div className="search">
+      <div className="search-container">
         <div className="searchInputs">
           <input
             placeholder={placeholder}
@@ -117,10 +122,8 @@ const Form = ({
               <CloseIcon id="closeIcon" onClick={clearInput} />
             )}
           </div>
-          {/* <button className="recipe-button" type="submit">
-            <i className="fas fa-plus-square"></i>
-          </button> */}
         </div>
+
         {/* This line prevents dropdown from showing when there is no filtered data */}
         {filteredData.length != 0 && (
           <div className="dataResult">
@@ -128,11 +131,11 @@ const Form = ({
               return (
                 <div className="dataItem" key={value.id}>
                   <button
-                    className="recipeButton"
+                    className="recipe-button"
                     onClick={submitRecipeHandler}
                     id={value.id}
                   >
-                    Add
+                    <AddBoxIcon id="add-ingredients-icon" />
                   </button>
                   <a href={value.source} target="_blank">
                     <p>{value.name}</p>

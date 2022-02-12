@@ -1,7 +1,73 @@
-.search {
-  width: 450px;
+/* form is displayed as flexbox */
+
+/* #region =========================todo input=========================== */
+.todo-input-container {
+  display: flex;
+  height: 2rem;
+  flex-grow: 1;
+  margin-left: 1rem;
+  max-width: 500px;
 }
-/* crops and formats drop down list */
+input {
+  font-size: 2rem;
+  width: 100%;
+  border: none;
+  background: white;
+  height: 100%;
+}
+#todo-button {
+  vertical-align: top;
+  /* padding: 0.5rem; */
+  height: 100%;
+  /* padding: 0.25rem; */
+  border: none;
+  background: white;
+  color: #2e5090;
+  background: #f7fffe;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#todo-button:hover {
+  background: #2e5090;
+  color: white;
+}
+#add-todo-icon {
+  height: 20px;
+  width: 100%;
+  align-self: flex-start;
+}
+/* #endregion */
+
+/* #region =========================search input========================= */
+.search-container {
+  flex-grow: 1;
+  margin-right: 1rem;
+  max-width: 500px;
+}
+.searchInputs {
+  display: flex;
+  height: 2rem;
+  /* background-color: white; */
+}
+.searchInputs input {
+  width: 100%;
+}
+.searchIcon {
+  background-color: white;
+}
+#searchIcon {
+  height: 100%;
+  color: black;
+  background-color: white;
+}
+#closeIcon {
+  height: 100%;
+  width: auto;
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
 .dataResult {
   margin-top: 5px;
   width: 100%;
@@ -25,27 +91,67 @@
 .dataItem p {
   margin-left: 10px;
 }
-
 a {
   text-decoration: none;
+  color: inherit;
 }
 a:hover {
   background-color: lightgrey;
 }
-.searchInputs {
-  display: flex;
+
+.recipe-button {
+  height: 100%;
+  border: none;
+  background: white;
+  color: #2e5090;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-#searchIcon {
-  height: 100%;
-  width: auto;
-  color: black;
-  background-color: white;
-}
-#closeIcon {
-  height: 100%;
-  width: auto;
-  color: black;
-  background-color: white;
+/* #endregion */
+
+/* #region =========================select input========================= */
+
+/*CUSTOM SELECTOR */
+select {
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background-image: none;
+  color: #2e5090;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
+
+.select-container {
+  flex-grow: 1;
+  max-width: 12rem;
+  height: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Arrow */
+.select::after {
+  position: absolute;
+  vertical-align: center;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: #2e5090;
+  cursor: pointer;
+  pointer-events: none;
+}
+/* .select:hover::after {
+  transform: scale(1.5);
+} */
+
+/* #endregion */
+
+/* #region =========================shared=============================== */
+/* #endregion */

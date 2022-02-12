@@ -6,18 +6,26 @@ Notes:
             Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
 
 Todo:
-    Update CSS
-    remove entries with long titles to prevent 3 row lines
+    
+    remove scroll bar
+    Increase height of grey background when hovering over recipe links
+    
 
 
 Done (uncomitted):
+    Change Button style
+    Remove color change for clicked links
+    change trash, checkmark and dropdown arrow style
+    resize filter dropdown to match height of search and input fields.
+    limit size of todo items
+    remove entries with long titles to prevent 3 row lines
+
+Done:
     Add items to todo list when clicked
     Add button to add each item to the list
     Open link in new page
     Vertically aligned search bar, filter dropdown and list input
     uninstalled: @material-ui/icons and @material-ui/core  
-    
-Done:
     
     Add magnifying glass icon
     Display the search results in a dropdown menu below the search bar
