@@ -60,6 +60,27 @@ const Form = ({
     setWordEntered("");
     setFilteredData([]);
   };
+  const submitRecipeHandler = (e) => {
+    e.preventDefault();
+    // console.log("add ingredients");
+    // console.log(e.target);
+    const ingredients = data[e.target.id].ingredients;
+    addIngredients(ingredients);
+    //Resets the input text to "" after submission
+  };
+
+  function addIngredients(ingredients) {
+    let todosArray = [...todos];
+    ingredients.map((ingredient) => {
+      todosArray.push({
+        text: ingredient,
+        completed: false,
+        id: Math.random(1000) * 1000,
+      });
+    });
+    setTodos(todosArray);
+  }
+
   //#endregion ==========================================================================
   //#region ============================Return HTML ============================================
   return (
@@ -81,7 +102,6 @@ const Form = ({
         </select>
       </div>
 
-      {/* old search bar */}
       <div className="search">
         <div className="searchInputs">
           <input
@@ -91,7 +111,7 @@ const Form = ({
             value={wordEntered}
           />
           <div className="searchIcon">
-            {filteredData.length === 0 ? (
+            {wordEntered === "" ? (
               <SearchIcon id="searchIcon" />
             ) : (
               <CloseIcon id="closeIcon" onClick={clearInput} />
@@ -102,13 +122,22 @@ const Form = ({
           </button> */}
         </div>
         {/* This line prevents dropdown from showing when there is no filtered data */}
-        {setFilteredData.length != 0 && (
+        {filteredData.length != 0 && (
           <div className="dataResult">
             {filteredData.slice(0, 15).map((value, key) => {
               return (
-                <a key={value.id} className="dataItem" href={value.source}>
-                  <p>{value.name}</p>
-                </a>
+                <div className="dataItem" key={value.id}>
+                  <button
+                    className="recipeButton"
+                    onClick={submitRecipeHandler}
+                    id={value.id}
+                  >
+                    Add
+                  </button>
+                  <a href={value.source} target="_blank">
+                    <p>{value.name}</p>
+                  </a>
+                </div>
               );
             })}
           </div>
