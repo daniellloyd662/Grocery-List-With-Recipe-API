@@ -1,19 +1,20 @@
 Notes:
     Searchbar source: https://www.youtube.com/watch?v=x7niho285qs&ab_channel=PedroTech
     Recipe Json data: https://github.com/tabatkins/recipe-db/blob/master/db-recipes.json
-    github pages deployment tutorial: https://www.youtube.com/watch?v=F8s4Ng-re0E&ab_channel=TelmoSampaio
     Dependencies: 
         Material ui: https://mui.com/getting-started/installation/
             Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
-
+    Github pages deployment tutorial: https://www.youtube.com/watch?v=F8s4Ng-re0E&ab_channel=TelmoSampaio
+        run npm run deploy to publish the site
 Todo:
 
 Done (uncomitted):
-    Added homepage, predeploy, and deploy to package.json for github pages deployment
+
 
 
 
 Done:
+    Added homepage, predeploy, and deploy to package.json for github pages deployment
     Change color scheme
     Add dropdown arrow
     Remove outline around text boxes
