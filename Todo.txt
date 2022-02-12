@@ -6,21 +6,21 @@ Notes:
             Use intallation page instructions NOT YOUTUBE (Youtube is outdated)
 
 Todo:
-    
-    remove scroll bar
-    Increase height of grey background when hovering over recipe links
-    
-
 
 Done (uncomitted):
+    Change color scheme
+    Add dropdown arrow
+    Remove outline around text boxes
+    Increase height of grey background when hovering over recipe links
+
+
+Done:
     Change Button style
     Remove color change for clicked links
     change trash, checkmark and dropdown arrow style
     resize filter dropdown to match height of search and input fields.
     limit size of todo items
     remove entries with long titles to prevent 3 row lines
-
-Done:
     Add items to todo list when clicked
     Add button to add each item to the list
     Open link in new page
