@@ -6,7 +6,7 @@
   scroll-behavior: smooth;
 }
 body {
-  background-image: linear-gradient(120deg, #2e5090 0%, #1b0655 100%);
+  background-image: linear-gradient(0deg, #181626d0 0%, #381c83 100%);
   color: white;
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
