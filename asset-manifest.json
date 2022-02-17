@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/Grocery-List-With-Recipe-API/static/css/main.adc91c01.css",
-    "main.js": "/Grocery-List-With-Recipe-API/static/js/main.9f079069.js",
+    "main.css": "/Grocery-List-With-Recipe-API/static/css/main.5513632d.css",
+    "main.js": "/Grocery-List-With-Recipe-API/static/js/main.0a655e24.js",
+    "static/media/grocerystore1.jpg": "/Grocery-List-With-Recipe-API/static/media/grocerystore1.eef37f0c236faef6390a.jpg",
     "index.html": "/Grocery-List-With-Recipe-API/index.html",
-    "main.adc91c01.css.map": "/Grocery-List-With-Recipe-API/static/css/main.adc91c01.css.map",
-    "main.9f079069.js.map": "/Grocery-List-With-Recipe-API/static/js/main.9f079069.js.map"
+    "main.5513632d.css.map": "/Grocery-List-With-Recipe-API/static/css/main.5513632d.css.map",
+    "main.0a655e24.js.map": "/Grocery-List-With-Recipe-API/static/js/main.0a655e24.js.map"
   },
   "entrypoints": [
-    "static/css/main.adc91c01.css",
-    "static/js/main.9f079069.js"
+    "static/css/main.5513632d.css",
+    "static/js/main.0a655e24.js"
   ]
 }
