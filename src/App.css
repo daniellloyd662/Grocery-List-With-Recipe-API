@@ -5,12 +5,6 @@
   scroll-behavior: smooth;
 }
 
-/* .bg-image {
-  background-image: url("./img/grocerystore1.jpg");
-  background-size: 100vh;
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-} */
 .App:before {
   content: "";
   position: fixed;
@@ -20,23 +14,14 @@
   display: block;
   background: linear-gradient(#0000005e, #00000069),
     url("./img/grocerystore1.jpg");
-
-  /* background-image: url("./img/grocerystore1.jpg"),
-    linear-gradient(to right, black, #6db3f2); */
-  /* background-image: url("./img/grocerystore1.jpg"); */
   background-size: cover;
   width: 100%;
   height: 100%;
   background-repeat: repeat-y;
-  /* -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px); */
-  filter: blur(0px);
 }
 
 .App {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   right: 0;
   z-index: 0;

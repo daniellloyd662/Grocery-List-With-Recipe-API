@@ -12,6 +12,7 @@ Todo:
 Done (uncomitted):
     Restyled, added background image, fixed margins, reduced text size
     Add instructions for list: 
+    
 
 Done:
     Added homepage, predeploy, and deploy to package.json for github pages deployment
