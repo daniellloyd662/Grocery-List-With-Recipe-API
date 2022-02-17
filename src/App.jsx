@@ -74,12 +74,14 @@ function App() {
   //#endregion =============================================================
 
   //#region =================Return HTML and pass in props=======================
+
   return (
     <div className="App">
       <header>
         <h1>Grocery List</h1>
       </header>
       {/* Pass in setInputText as a prop */}
+
       <Form
         todos={todos}
         setTodos={setTodos}

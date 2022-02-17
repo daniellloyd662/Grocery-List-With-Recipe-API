@@ -13,7 +13,6 @@ const Form = ({
   setTodos,
   setStatus,
   data,
-  placeholder,
 
   //#endregion ===============================================================================
 }) => {
@@ -90,6 +89,7 @@ const Form = ({
           type="text"
           className="todo-input"
           value={inputText}
+          placeholder={"Add item"}
         />
         <button
           id="todo-button"
@@ -110,7 +110,7 @@ const Form = ({
       <div className="search-container">
         <div className="searchInputs">
           <input
-            placeholder={placeholder}
+            placeholder={"Recipe Search"}
             type="text"
             onChange={handleFilter}
             value={wordEntered}
@@ -137,8 +137,11 @@ const Form = ({
                   >
                     <AddBoxIcon id="add-ingredients-icon" />
                   </button>
+
                   <a href={value.source} target="_blank">
                     <p>{value.name}</p>
+
+                    <p className="link-symbol">&#128279;</p>
                   </a>
                 </div>
               );
